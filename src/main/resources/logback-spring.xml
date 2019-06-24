@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/base.xml" />
+	<logger name="org.springframework.web" level="INFO" />
+	<!-- Insert the current time formatted as "yyyyMMdd'T'HHmmss" under the 
+		key "bySecond" into the logger context. This value will be available to all 
+		subsequent configuration elements. -->
+	<timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss" />
+	<timestamp key="startTimestamp" datePattern="yyyyMMddHHmmssSSS" />
+
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/system.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level
+				%logger{36}.%M -
+				%msg%n</Pattern>
+		</encoder>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/archive/system-%d{dd-MM-yyyy}_%i.log
+			</fileNamePattern>
+			<maxFileSize>1MB</maxFileSize>
+			<maxHistory>2</maxHistory>
+			<totalSizeCap>1GB</totalSizeCap>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="HELLO-STDOUT"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/enrolment.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level
+				%logger{36}.%M -
+				%msg%n</Pattern>
+		</encoder>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/archive/enrolment-%d{dd-MM-yyyy}_%i.log
+			</fileNamePattern>
+			<maxFileSize>1MB</maxFileSize>
+			<maxHistory>2</maxHistory>
+			<totalSizeCap>1GB</totalSizeCap>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+	</appender>
+
+	<!-- Profile based logging -->
+	<springProfile name="dev">
+		<root level="debug">
+			<appender-ref ref="STDOUT" />
+		</root>
+		<logger name="com.coddicted.school.enrol" level="debug">
+			<appender-ref ref="HELLO-STDOUT" />
+		</logger>
+	</springProfile>
+	<springProfile name="prod">
+		<root level="info">
+			<appender-ref ref="STDOUT" />
+		</root>
+		<logger name="com.coddicted.school.enrol" additivity="false" level="info">
+			<appender-ref ref="HELLO-STDOUT" />
+		</logger>
+	</springProfile>
+
+	<springProfile name="default">
+		<root level="info">
+			<appender-ref ref="STDOUT" />
+		</root>
+		<logger name="com.coddicted.school.enrol" additivity="false" level="info">
+			<appender-ref ref="HELLO-STDOUT" />
+		</logger>
+	</springProfile>
+</configuration>
