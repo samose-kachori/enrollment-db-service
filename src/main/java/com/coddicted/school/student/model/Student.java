@@ -14,7 +14,8 @@ import java.time.LocalDate;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Data
-public class Student {
+public class Student
+{
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @ApiModelProperty(notes = SwaggerConstant.AUTO_GENERATED_STUDENT_ID)
