@@ -1,4 +1,4 @@
-package com.coddicted.school;
+package com.coddicted.school.student.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
