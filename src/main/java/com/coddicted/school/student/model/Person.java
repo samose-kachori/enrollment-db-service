@@ -28,4 +28,7 @@ public interface Person
 
     List<Phone> getPhoneList();
     void setPhoneList(List<Phone> phoneList);
+
+    List<Address> getAddressList();
+    void setAddressList(List<Address> addressList);
 }

@@ -4,6 +4,7 @@ public enum AddressType
 {
     HOME("Home"),
     BUSINESS("Business"),
+    MAILING("Mailing"),
     SCHOOL("School");
 
     private String name;

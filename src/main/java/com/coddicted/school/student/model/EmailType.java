@@ -4,6 +4,7 @@ public enum EmailType
 {
     HOME("Home"),
     WORK("Work"),
+    SCHOOL("School"),
     OTHER("Other"),
     CUSTOM("Custom");
 
